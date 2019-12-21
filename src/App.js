@@ -72,6 +72,7 @@ export class App extends Component {
       lists: newLists,
       allCards: newCards
     })
+    console.log(this.state.allCards)
   };
 
   handleAddCard = (listId) => {
@@ -92,6 +93,7 @@ export class App extends Component {
       allCards: {...this.state.allCards,[newCard.id]: newCard}
   
     })
+    console.log(this.state.allCards)
   };
 
   render() {
