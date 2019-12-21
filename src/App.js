@@ -14,11 +14,8 @@ const newRandomCard = () => {
 }
 
 function omit(obj, keyToOmit) {
-  return Object.entries(obj).reduce(
-    (newObj, [key, value]) =>
-        key === keyToOmit ? newObj : {...newObj, [key]: value},
-    {}
-  );
+  return Object.entries(obj).reduce((newObj, [key, value]) =>
+    key === keyToOmit ? newObj : {...newObj, [key]: value},{});
 }
 
 
@@ -67,10 +64,7 @@ export class App extends Component {
     console.log({cardId})
     const { lists, allCards } = this.state;
 
-    const newLists = lists.map(list => ({
-      ...list,
-      cardIds: list.cardIds.filter(id => id !== cardId)
-    }));
+    const newLists = lists.map(list => ({...list, cardIds: list.cardIds.filter(id => id !== cardId)}));
 
     const newCards = omit(allCards, cardId);
 
@@ -82,14 +76,12 @@ export class App extends Component {
 
   handleAddCard = (listId) => {
     console.log({listId})
+
     const newCard = newRandomCard()
 
     const newLists = this.state.lists.map(list => {
       if (list.id === listId) {
-	      return {
-          ...list,
-          cardIds: [...list.cardIds, newCard.id]
-        };
+	      return {...list, cardIds: [...list.cardIds, newCard.id]};
       }
       return list;
     })
@@ -97,10 +89,7 @@ export class App extends Component {
     this.setState({
 
       lists: newLists,
-      allCards: {
-        ...this.state.allCards,
-        [newCard.id]: newCard
-      }
+      allCards: {...this.state.allCards,[newCard.id]: newCard}
   
     })
   };
